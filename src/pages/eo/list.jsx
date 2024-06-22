@@ -55,6 +55,7 @@ const List = () => {
                 }
             );
             setData(data.filter((item) => item.id !== id))
+            setIsLoading(false)
         } catch (err) {
             setIsLoading(false)
             console.error(err)
