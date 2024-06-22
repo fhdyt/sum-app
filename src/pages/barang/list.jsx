@@ -76,7 +76,7 @@ const List = () => {
                 <div className="w-full">
                     <Link to="/barang/form" className="submit-button w-full">Tambah</Link>
                 </div>
-                <table className="table">
+                <table className="table table-zebra">
                     {/* head */}
                     <thead>
                         <tr >
@@ -101,6 +101,15 @@ const List = () => {
                             ))
                         }
                     </tbody>
+                    <tfoot>
+                        <tr >
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th>Harga</th>
+                            <th>Gambar</th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </>

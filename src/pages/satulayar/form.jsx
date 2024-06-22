@@ -219,31 +219,31 @@ const Form = () => {
                         <label htmlFor="barang" className="input-label">Barang</label>
                         <div className="flex flex-row gap-2 w-full">
                             <Select className="w-full" options={barangOptions} onChange={(e) => setFormBarang({ ...formBarang, total: e.harga * formBarang.qty, barang: { id: e.value, nama: e.nama, gambar: e.gambar, harga: e.harga } })} />
-                            <input id="qty" name="qty" value={data.qty} onChange={(e) => setFormBarang({ ...formBarang, total: formBarang.barang.harga * e.target.value, qty: e.target.value })} type="text"
+                            <input id="qty" name="qty" value={formBarang.qty} onChange={(e) => setFormBarang({ ...formBarang, total: formBarang.barang.harga * e.target.value, qty: e.target.value })} type="text"
                                 className="input-text"
                             />
                             <a className="submit-button bg-blue-600" onClick={handleAddBarang}>Add</a>
                         </div>
-                        <div className="w-full flex flex-col gap-1">
+                        <div className="w-full grid-cols-3 grid gap-1">
 
+                            {
+                                barangData.map((item, index) => (
+                                    <div key={index} className="w-full flex flex-row gap-1 rounded-md bg-green-200 overflow-hidden">
+                                        <div className="w-72">
+                                            <img src={`${import.meta.env.VITE_CLIENT_API_URL}/${item.barang['gambar']}`} className="w-full h-full object-cover" />
+                                        </div>
+                                        <div className="flex flex-col justify-center w-full px-2">
+                                            <p className="font-bold text-xs flex flex-row">{item.barang['nama']} {rupiahFormat(item.barang['harga'])}</p>
+                                            <p className="text-xs">{item.qty} Pcs</p>
+                                            <p className="text-xs">{rupiahFormat(item.qty * item.barang['harga'])}</p>
+                                        </div>
+                                        <div onClick={() => setBarangData(barangData.filter((_, i) => i !== index))} className=" text-red-600 w-full flex flex-col justify-center items-end px-2">
+                                            <MdOutlineClose />
+                                        </div>
+                                    </div>
+                                ))
+                            }
                         </div>
-                        {
-                            barangData.map((item, index) => (
-                                <div key={index} className="w-full flex flex-row gap-1 rounded-md bg-green-200 overflow-hidden">
-                                    <div className="w-36">
-                                        <img src={`${import.meta.env.VITE_CLIENT_API_URL}/${item.barang['gambar']}`} alt="" />
-                                    </div>
-                                    <div className="flex flex-col justify-center w-full px-2">
-                                        <p className="font-bold text-xs flex flex-row">{item.barang['nama']} {rupiahFormat(item.barang['harga'])}</p>
-                                        <p className="text-xs">{item.qty}</p>
-                                        <p className="text-xs">{rupiahFormat(item.qty * item.barang['harga'])}</p>
-                                    </div>
-                                    <div onClick={() => setBarangData(barangData.filter((_, i) => i !== index))} className=" text-red-600 w-full flex flex-col justify-center items-end px-2">
-                                        <MdOutlineClose />
-                                    </div>
-                                </div>
-                            ))
-                        }
                     </div>
                     <div className="input-container">
                         <label htmlFor="tanggal_pemesanan" className="input-label">Tanggal Pemesanan</label>
@@ -277,8 +277,6 @@ const Form = () => {
                         className="submit-button">
                         Simpan
                     </button>
-                    <a onClick={() => console.log(barangData)}>Barang Data</a>
-                    <a onClick={() => console.log(data)}>Data</a>
                 </div>
             </form>
             <div className="w-2/6  text-xs">
@@ -299,8 +297,8 @@ const Form = () => {
                         <p className="text-left">Harga Lokasi</p>
                         <p>{rupiahFormat(data.lokasi_harga)}</p>
                     </div>
-                    <div className="devider"></div>
-                    <div className="flex flex-row justify-between  ">
+                    <div className="divider divider-end">+</div>
+                    <div className="flex flex-row justify-between font-bold text-base  ">
                         <p className="text-left">Total</p>
                         <p>{rupiahFormat(data.total)}</p>
                     </div>

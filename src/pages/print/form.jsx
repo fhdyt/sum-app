@@ -21,7 +21,7 @@ const Form = () => {
 
     const bahan = [
         { value: '280 gsm', label: '280 gsm' },
-        { value: '340gsm', label: '340gsm' },
+        { value: '340 gsm', label: '340 gsm' },
     ]
 
     const cetak = [

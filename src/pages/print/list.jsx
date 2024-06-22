@@ -72,7 +72,7 @@ const List = () => {
     return (
         <>
             <Loading isLoading={isLoading} />
-            <div className="w-full mx-auto flex flex-col">
+            <div className="max-w-4xl mx-auto flex flex-col">
                 <div className="w-full">
                     <Link to="/print/form" className="submit-button w-fit">Tambah</Link>
                 </div>
@@ -107,6 +107,18 @@ const List = () => {
                             ))
                         }
                     </tbody>
+                    <tfoot>
+                        <tr >
+                            <th>No</th>
+                            <th>Keterangan</th>
+                            <th>Cetak</th>
+                            <th>Bahan</th>
+                            <th>Ukuran</th>
+                            <th>Finishing</th>
+                            <th>Desain</th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </>

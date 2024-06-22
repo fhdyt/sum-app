@@ -72,7 +72,7 @@ const List = () => {
     return (
         <>
             <Loading isLoading={isLoading} />
-            <div className="w-full mx-auto flex flex-col">
+            <div className="max-w-5xl mx-auto flex flex-col">
                 <div className="w-full">
                     <Link to="/satulayar/form" className="submit-button w-fit">Tambah</Link>
                 </div>
@@ -82,6 +82,10 @@ const List = () => {
                         <tr >
                             <th>No</th>
                             <th>Kegiatan</th>
+                            <th>Jumlah Hari</th>
+                            <th>Pengantaran</th>
+                            <th>Lokasi</th>
+                            <th>Total Harga</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -90,13 +94,37 @@ const List = () => {
                             data.map((item, index) => (
                                 <tr key={item.id}>
                                     <th>{index + 1}</th>
-                                    <td><Link to={`form/${item.id}`}><b>{item.kegiatan}</b></Link>
+                                    <td><Link to={`form/${item.id}`}><b>{item.kegiatan}</b><br />
+                                        <div className="flex flex-row gap-1 text-xs">
+
+                                            {
+                                                item.barang.map((itemBarang, index) => (
+                                                    <p className="bg-slate-800 text-white px-5 py-1 rounded-full" key={index}>{itemBarang.barang['nama']}</p>
+                                                ))
+                                            }
+                                        </div>
+                                    </Link>
                                     </td>
+                                    <td>{item.jumlah_hari} Hari<br />{dateFormat(item.tanggal_pemesanan)} - {dateFormat(item.tanggal_pengembalian)}</td>
+                                    <td>{item.pengantaran}<br />{rupiahFormat(item.pengantaran_harga)}</td>
+                                    <td>{item.lokasi}<br />{rupiahFormat(item.lokasi_harga)}</td>
+                                    <td>{rupiahFormat(item.total)}</td>
                                     <td><p onClick={() => cofirmDelete(item.id)} className="text-red-700"><CiTrash /></p></td>
                                 </tr>
                             ))
                         }
                     </tbody>
+                    <tfoot>
+                        <tr >
+                            <th>No</th>
+                            <th>Kegiatan</th>
+                            <th>Jumlah Hari</th>
+                            <th>Pengantaran</th>
+                            <th>Lokasi</th>
+                            <th>Total Harga</th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </>

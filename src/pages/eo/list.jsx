@@ -96,9 +96,10 @@ const List = () => {
                             data.map((item, index) => (
                                 <tr key={item.id}>
                                     <th>{index + 1}</th>
-                                    <td><Link to={`form/${item.id}`}><b>{item.kegiatan}</b></Link>
+                                    <td><Link to={`form/${item.id}`}><b>{item.kegiatan}</b>
                                         <br />
                                         {item.konsep}
+                                    </Link>
                                     </td>
                                     <td>{item.venue}</td>
                                     <td>{parseInt(item.venue_panjang * item.venue_lebar)} m²</td>
@@ -120,6 +121,19 @@ const List = () => {
                             ))
                         }
                     </tbody>
+                    <tfoot>
+                        <tr >
+                            <th>No</th>
+                            <th>Kegiatan</th>
+                            <th>Venue</th>
+                            <th>Luas Venue</th>
+                            <th>Luas Panggung</th>
+                            <th>Kapasitas Orang</th>
+                            <th>Kapasitas Sound</th>
+                            <th>Kapasitas Kelengkapan</th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </>

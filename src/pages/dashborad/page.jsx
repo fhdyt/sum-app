@@ -21,12 +21,12 @@ const menu = [
     },
 
     {
-        name: "Master Barang",
-        link: "barang"
-    },
-    {
         name: "Satu Layar",
         link: "satulayar"
+    },
+    {
+        name: "Master Barang",
+        link: "barang"
     },
 
 ];
