@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { AiOutlineLogout } from "react-icons/ai";
+import { FcVoicePresentation } from "react-icons/fc";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom"
 
 const menu = [
@@ -77,7 +78,10 @@ const Page = () => {
                                     ))}
                                 </ul>
                             </div>
-                            <Link to="/home" className="btn btn-ghost text-xl">Sum</Link>
+                            <div className="flex flex-col ml-3 ">
+                                <Link to="/home" className="text-2xl font-black flex flex-row items-center gap-1"><FcVoicePresentation /> S.U.M</Link>
+                                <p className="text-xs italic font-semibold">Lorem ipsum dolor sit amet.</p>
+                            </div>
                         </div>
                         <div className="navbar-center hidden lg:flex">
                             <ul className="gap-1 menu menu-horizontal px-1 z-50">
@@ -91,14 +95,14 @@ const Page = () => {
                         </div>
                     </div>
                     <div className="bg-base-200 w-full mx-auto px-6">
-                        <div className="bg-base-100 w-full mx-2 my-2 px-5 py-3 rounded-lg shadow-lg">
+                        <div className="bg-base-100 w-full  my-2 px-5 py-3 rounded-lg shadow-lg">
                             <Outlet />
                         </div>
                     </div>
                 </div>
                 <footer className="footer footer-center p-4  text-base-content">
                     <aside>
-                        <p>Copyright © 2024 - All right reserved by ACME Industries Ltd</p>
+                        <p>Copyright © 2024 - All right reserved by S.U.M</p>
                     </aside>
                 </footer>
             </div>

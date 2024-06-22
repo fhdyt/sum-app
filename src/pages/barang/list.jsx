@@ -72,11 +72,11 @@ const List = () => {
     return (
         <>
             <Loading isLoading={isLoading} />
-            <div className=" max-w-md mx-auto flex flex-col">
+            <div className=" max-w-xl mx-auto flex flex-col">
                 <div className="w-full">
-                    <Link to="/barang/form" className="submit-button w-full">Tambah</Link>
+                    <Link to="/barang/form" className="submit-add w-fit">Tambah</Link>
                 </div>
-                <table className="table table-zebra">
+                <table className="table">
                     {/* head */}
                     <thead>
                         <tr >

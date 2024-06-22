@@ -74,7 +74,7 @@ const List = () => {
             <Loading isLoading={isLoading} />
             <div className="max-w-5xl mx-auto flex flex-col">
                 <div className="w-full">
-                    <Link to="/satulayar/form" className="submit-button w-fit">Tambah</Link>
+                    <Link to="/satulayar/form" className="submit-add w-fit">Tambah</Link>
                 </div>
                 <table className="table">
                     {/* head */}
@@ -95,11 +95,11 @@ const List = () => {
                                 <tr key={item.id}>
                                     <th>{index + 1}</th>
                                     <td><Link to={`form/${item.id}`}><b>{item.kegiatan}</b><br />
-                                        <div className="flex flex-row gap-1 text-xs">
+                                        <div className="flex flex-row gap-1 mt-2 text-xs">
 
                                             {
                                                 item.barang.map((itemBarang, index) => (
-                                                    <p className="bg-slate-800 text-white px-5 py-1 rounded-full" key={index}>{itemBarang.barang['nama']}</p>
+                                                    <p className="border border-slate-800 bg-slate-800 text-white px-4 py-0.5 rounded-full" key={index}>{itemBarang.barang['nama']}</p>
                                                 ))
                                             }
                                         </div>

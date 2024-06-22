@@ -75,7 +75,7 @@ const List = () => {
             <Loading isLoading={isLoading} />
             <div className="w-full mx-auto flex flex-col">
                 <div className="w-full">
-                    <Link to="/eo/form" className="submit-button w-fit">Tambah</Link>
+                    <Link to="/eo/form" className="submit-add w-fit">Tambah</Link>
                 </div>
                 <table className="table">
                     {/* head */}
