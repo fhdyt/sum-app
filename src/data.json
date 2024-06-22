@@ -1,0 +1,10 @@
+{
+  "selTipe": [
+    { "value": "Aset", "label": "Aset", "key": "Aset" },
+    { "value": "Beban", "label": "Beban", "key": "Beban" },
+    { "value": "Liabilitas", "label": "Liabilitas", "key": "Liabilitas" },
+    { "value": "Ekuitas", "label": "Ekuitas", "key": "Ekuitas" },
+    { "value": "Pendapatan", "label": "Pendapatan", "key": "Pendapatan" },
+    { "value": "Kontra Aset", "label": "Kontra Aset", "key": "Kontra Aset" }
+  ]
+}
