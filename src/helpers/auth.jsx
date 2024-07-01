@@ -5,7 +5,17 @@ export function getAuthToken() {
     const token = localStorage.getItem('token')
     return token;
 }
-
+export function getRole() {
+    const token = localStorage.getItem('role')
+    return token;
+}
+export async function checkAuth() {
+    // Implementasikan logika untuk memeriksa autentikasi pengguna
+    // Misalnya, periksa token dari local storage atau panggil API
+    const isAuthenticated = true; // Ganti dengan logika autentikasi yang sebenarnya
+    const role = 'admin'; // Ganti dengan logika untuk mendapatkan peran pengguna
+    return { isAuthenticated, role };
+}
 export function checkAuthLoader() {
     const token = getAuthToken();
     if (!token) {

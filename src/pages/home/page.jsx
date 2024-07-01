@@ -1,9 +1,13 @@
+import AdminPage from "./admin"
+import UserPage from "./user"
 
 const Page = () => {
 
     return (
         <>
-            <h1>Home</h1>
+            {
+                localStorage.getItem('role') === 'admin' ? <AdminPage /> : <UserPage />
+            }
         </>
     )
 }

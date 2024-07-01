@@ -235,7 +235,7 @@ const Form = () => {
                                         <div className="flex flex-col justify-center w-full px-2">
                                             <p className="font-bold text-xs flex flex-row">{item.barang['nama']} {rupiahFormat(item.barang['harga'])}</p>
                                             <p className="text-xs">{item.qty} Pcs</p>
-                                            <p className="text-xs">{rupiahFormat(item.qty * item.barang['harga'])}</p>
+                                            <p className="text-xs">{rupiahFormat(item.qty * item.barang['harga'] * data.jumlah_hari)}</p>
                                         </div>
                                         <div onClick={() => setBarangData(barangData.filter((_, i) => i !== index))} className=" text-red-600 w-full flex flex-col justify-center items-end px-2">
                                             <MdOutlineClose />

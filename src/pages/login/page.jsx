@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "../../api/axios";
 import { useNavigate } from "react-router-dom";
 import { FcVoicePresentation } from "react-icons/fc";
-
+import logo from '/src/assets/logo.png'
 const Page = () => {
     const navigate = useNavigate();
 
@@ -29,7 +29,9 @@ const Page = () => {
 
             console.log(response.data)
             if (response.data.status) {
+                console.log(response?.data)
                 localStorage.setItem('token', response?.data?.token);
+                localStorage.setItem('role', response?.data?.user['role']);
                 navigate('/home')
             }
             else {
@@ -41,11 +43,17 @@ const Page = () => {
         }
 
     }
+
+    useEffect(() => {
+        if (localStorage.getItem('token')) {
+            navigate('/home')
+        }
+    })
     return (
         <div className="min-h-screen  flex items-center justify-center bg-base-300 py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-sm  shadow-xl w-full  px-7 py-10 bg-white rounded-lg">
                 <div className="flex flex-col justify-center items-center">
-                    <FcVoicePresentation className="text-6xl" />
+                    <img src={logo} alt="logo" className="h-24" />
                     <h2 className=" text-center text-2xl font-extrabold text-gray-900">Login</h2>
                     <p className="text-center text-sm text-gray-500 font-bold">Please sign in to your account</p>
                 </div>

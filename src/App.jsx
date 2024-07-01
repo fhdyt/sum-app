@@ -22,6 +22,10 @@ import Barang from './pages/barang/page.jsx';
 import ListBarang from './pages/barang/list.jsx';
 import FormBarang from './pages/barang/form.jsx';
 
+import User from './pages/user/page.jsx';
+import ListUser from './pages/user/list.jsx';
+import FormUser from './pages/user/form.jsx';
+
 import Satulayar from './pages/satulayar/page.jsx';
 import ListSatulayar from './pages/satulayar/list.jsx';
 import FormSatulayar from './pages/satulayar/form.jsx';
@@ -67,6 +71,14 @@ const router = createBrowserRouter([
           { index: true, element: <ListBarang /> },
           { path: 'form/', element: <FormBarang /> },
           { path: 'form/:id', element: <FormBarang /> }
+        ]
+      },
+      {
+        path: 'user', element: <User />,
+        children: [
+          { index: true, element: <ListUser /> },
+          { path: 'form/', element: <FormUser /> },
+          { path: 'form/:id', element: <FormUser /> }
         ]
       },
       {

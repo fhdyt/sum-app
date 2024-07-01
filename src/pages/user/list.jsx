@@ -22,7 +22,7 @@ const List = () => {
         setIsLoading(true)
         try {
             const token = getAuthToken()
-            const response = await axios.get('/print/',
+            const response = await axios.get('/auth/',
                 {
                     headers: {
                         'Content-Type': 'application/json',
@@ -45,7 +45,7 @@ const List = () => {
         setIsLoading(true)
         try {
             const token = getAuthToken()
-            await axios.delete('/print/' + id,
+            await axios.delete('/barang/' + id,
                 {
                     headers: {
                         'Content-Type': 'application/json',
@@ -72,22 +72,18 @@ const List = () => {
     return (
         <>
             <Loading isLoading={isLoading} />
-            <div className="max-w-4xl mx-auto flex flex-col">
+            <div className=" max-w-xl mx-auto flex flex-col">
                 <div className="w-full">
-                    <Link to="/print/form" className="submit-add w-fit">Tambah</Link>
+                    <Link to="/user/form" className="submit-add w-fit">Tambah</Link>
                 </div>
                 <table className="table">
                     {/* head */}
                     <thead>
                         <tr >
                             <th>No</th>
-                            <th>Keterangan</th>
-                            <th>Cetak</th>
-                            <th>Bahan</th>
-                            <th>Ukuran</th>
-                            <th>Finishing</th>
-                            <th>Total</th>
-                            <th>Desain</th>
+                            <th>Nama</th>
+                            <th>Phone</th>
+                            <th>Username</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -96,14 +92,11 @@ const List = () => {
                             data.map((item, index) => (
                                 <tr key={item.id}>
                                     <th>{index + 1}</th>
-                                    <td><Link to={`form/${item.id}`}><b>{item.kegiatan}</b></Link>
+                                    <td><Link to={`form/${item.id}`}><b>{item.user_name}</b><br />{item.role}</Link>
                                     </td>
-                                    <td>{item.cetak}</td>
-                                    <td>{item.bahan}<br /> {rupiahFormat(item.bahan_harga)}</td>
-                                    <td>{parseFloat(item.ukuran_panjang * item.ukuran_lebar)} m²</td>
-                                    <td>{item.finishing}</td>
-                                    <td>{rupiahFormat(item.total)}</td>
-                                    <td><img src={`${import.meta.env.VITE_CLIENT_API_URL}/${item.desain}`} className="w-14  object-cover" alt="" /></td>
+                                    <td>{item.user_phone}</td>
+                                    <td>{item.user_username}</td>
+                                    <td><img src={`${import.meta.env.VITE_CLIENT_API_URL}/${item.gambar}`} className="w-14  object-cover" alt="" /></td>
                                     <td><p onClick={() => cofirmDelete(item.id)} className="text-red-700"><CiTrash /></p></td>
                                 </tr>
                             ))
@@ -112,12 +105,8 @@ const List = () => {
                     <tfoot>
                         <tr >
                             <th>No</th>
-                            <th>Keterangan</th>
-                            <th>Cetak</th>
-                            <th>Bahan</th>
-                            <th>Ukuran</th>
-                            <th>Finishing</th>
-                            <th>Desain</th>
+                            <th>Nama</th>
+                            <th>Username</th>
                             <th></th>
                         </tr>
                     </tfoot>

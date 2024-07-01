@@ -4,6 +4,7 @@ import { getAuthToken } from "../../helpers/auth"
 import { useNavigate, useParams } from "react-router-dom"
 import { SiAlacritty } from "react-icons/si"
 import Select from 'react-select'
+import { rupiahFormat } from "../../helpers/numberFormat"
 const Form = () => {
 
     const navigate = useNavigate();
@@ -12,16 +13,18 @@ const Form = () => {
         perusahaan: '',
         order: '',
         bahan: '',
+        bahan_harga: '',
         ukuran_panjang: '',
         ukuran_lebar: '',
         detail: '',
         finishing: '',
         desain: '',
+        total: 0
     })
 
     const bahan = [
-        { value: '280 gsm', label: '280 gsm' },
-        { value: '340 gsm', label: '340 gsm' },
+        { value: '280 gsm', label: '280 gsm', harga: 15000 },
+        { value: '340 gsm', label: '340 gsm', harga: 20000 },
     ]
 
     const cetak = [
@@ -35,6 +38,7 @@ const Form = () => {
         { value: 'Mata Ikan', label: 'Mata Ikan' },
         { value: 'Lebih Bahan', label: 'Lebih Bahan' },
     ]
+
     const [isLoading, setIsLoading] = useState(false)
     const { id } = useParams()
     const [dataId] = useState(id !== undefined ? true : false)
@@ -65,11 +69,13 @@ const Form = () => {
                 kegiatan: response.data.kegiatan,
                 cetak: response.data.cetak,
                 bahan: response.data.bahan,
+                bahan_harga: response.data.bahan_harga,
                 ukuran_panjang: response.data.ukuran_panjang,
                 ukuran_lebar: response.data.ukuran_lebar,
                 detail: response.data.detail,
                 finishing: response.data.finishing,
                 desain: response.data.desain,
+                total: response.data.total
             })
             // setCheckedItems(JSON.parse(response.data.kelengkapan))
 
@@ -136,6 +142,10 @@ const Form = () => {
         }
     };
 
+    useEffect(() => {
+        const total = data.ukuran_panjang * data.ukuran_lebar * data.bahan_harga
+        setData({ ...data, total: total })
+    }, [data.ukuran_panjang, data.ukuran_lebar, data.bahan_harga])
     return (
         <div className="w-md max-w-md space-y-8 mx-auto">
             <form className="mt-8 space-y-5" onSubmit={handleSubmit} >
@@ -153,7 +163,7 @@ const Form = () => {
                     </div>
                     <div className="input-container">
                         <label htmlFor="bahan" className="input-label">Bahan</label>
-                        <Select options={bahan} value={bahan.find(option => option.value === data.bahan)} onChange={(e) => setData({ ...data, bahan: e.value })} />
+                        <Select options={bahan} value={bahan.find(option => option.value === data.bahan)} onChange={(e) => setData({ ...data, bahan: e.value, bahan_harga: e.harga })} />
                     </div>
 
                     <div className="input-container">
@@ -177,6 +187,23 @@ const Form = () => {
                         <img src={`${import.meta.env.VITE_CLIENT_API_URL}/${data.desain}`} className="w-36  object-cover" alt="" />
 
                         <input type='file' className="file-input" name="bgImg" onChange={handleUpload} />
+                    </div>
+                    <div className="input-container text-xs">
+                        <div className="w-full flex-col flex gap-2">
+                            <div className="flex flex-row justify-between ">
+                                <p className="text-left">Harga Bahan</p>
+                                <p>{rupiahFormat(data.bahan_harga)}</p>
+                            </div>
+                            <div className="flex flex-row justify-between  ">
+                                <p className="text-left">Luas</p>
+                                <p>{(data.ukuran_panjang * data.ukuran_lebar)}</p>
+                            </div>
+                            <div className="divider divider-end">+</div>
+                            <div className="flex flex-row justify-between font-bold text-base  ">
+                                <p className="text-left">Total</p>
+                                <p>{rupiahFormat(data.total)}</p>
+                            </div>
+                        </div>
                     </div>
 
 

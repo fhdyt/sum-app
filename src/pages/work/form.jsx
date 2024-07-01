@@ -35,7 +35,7 @@ const Form = () => {
 
     const finishing = [
         { value: 'Stiker', label: 'Stiker' },
-        { value: 'Duho', label: 'Duho' },
+        { value: 'Duko', label: 'Duko' },
         { value: 'Polos', label: 'Polos' },
     ]
     const [isLoading, setIsLoading] = useState(false)
