@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { getAuthToken } from "../../../helpers/auth"
 import axios from "../../../api/axios"
 import { rupiahFormat } from "../../../helpers/numberFormat"
+import Loading from "../../../components/Loading"
 
 const TabPrint = () => {
     const [data, setData] = useState([])
@@ -35,6 +36,7 @@ const TabPrint = () => {
     }
     return (
         <>
+            <Loading status={isLoading} />
             <table className="table">
                 {/* head */}
                 <thead>

@@ -3,6 +3,8 @@ import { AiOutlineLogout } from "react-icons/ai";
 import { FcVoicePresentation } from "react-icons/fc";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom"
 import logo from '/src/assets/logo.png'
+import { useEffect } from "react";
+import { verifyToken } from "../../helpers/auth";
 const menu_user = [
     {
         name: "Beranda",
@@ -69,6 +71,18 @@ function MenuItem({ item }) {
 }
 
 const Page = () => {
+
+    useEffect(() => {
+        const checkTokenAndNavigate = async () => {
+            const checkToken = await verifyToken();
+            if (!checkToken) {
+                localStorage.clear();
+                navigate('/login');
+            }
+        };
+
+        checkTokenAndNavigate();
+    }, [location.pathname, navigate]);
     const navigate = useNavigate();
     const logoutAction = () => {
         localStorage.clear()

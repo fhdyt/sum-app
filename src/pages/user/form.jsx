@@ -4,6 +4,7 @@ import { getAuthToken } from "../../helpers/auth"
 import { useNavigate, useParams } from "react-router-dom"
 import { SiAlacritty } from "react-icons/si"
 import Select from 'react-select'
+import Loading from "../../components/Loading"
 const Form = () => {
 
     const navigate = useNavigate();
@@ -118,56 +119,59 @@ const Form = () => {
     };
 
     return (
-        <div className="w-md max-w-md space-y-8 mx-auto">
-            <form className="mt-8 space-y-5" onSubmit={handleSubmit} >
-                <input type="hidden" name="remember" value="true" />
-                <div className="rounded-md shadow-sm flex flex-col gap-1">
-                    <div className="input-container">
-                        <label htmlFor="user_name" className="input-label">Nama</label>
-                        <input id="user_name" name="user_name" value={data.user_name} onChange={(e) => setData({ ...data, user_name: e.target.value })} type="text" autoComplete="user_name" required
-                            className="input-text"
-                            placeholder="Nama" />
+        <>
+            <Loading status={isLoading} />
+            <div className="w-md max-w-md space-y-8 mx-auto">
+                <form className="mt-8 space-y-5" onSubmit={handleSubmit} >
+                    <input type="hidden" name="remember" value="true" />
+                    <div className="rounded-md shadow-sm flex flex-col gap-1">
+                        <div className="input-container">
+                            <label htmlFor="user_name" className="input-label">Nama</label>
+                            <input id="user_name" name="user_name" value={data.user_name} onChange={(e) => setData({ ...data, user_name: e.target.value })} type="text" autoComplete="user_name" required
+                                className="input-text"
+                                placeholder="Nama" />
+                        </div>
+                        <div className="input-container">
+                            <label htmlFor="user_phone" className="input-label">Phone</label>
+                            <input id="user_phone" name="user_phone" value={data.user_phone} onChange={(e) => setData({ ...data, user_phone: e.target.value })} type="text" autoComplete="user_phone" required
+                                className="input-text"
+                                placeholder="Phone" />
+                        </div>
+                        <div className="input-container">
+                            <label htmlFor="user_username" className="input-label">Username</label>
+                            <input id="user_username" name="user_username" value={data.user_username} onChange={(e) => setData({ ...data, user_username: e.target.value })} type="text" autoComplete="user_username" required
+                                className="input-text"
+                                placeholder="Username" />
+                        </div>
+                        {
+                            dataId ? <></>
+                                :
+                                <div className="input-container">
+                                    <label htmlFor="user_password" className="input-label">Password</label>
+                                    <input id="user_password" name="user_password" value={data.user_password} onChange={(e) => setData({ ...data, user_password: e.target.value })} type="text" autoComplete="user_password" required={dataId ? false : true}
+                                        className="input-text"
+                                        placeholder="Password" />
+                                </div>
+                        }
+
+                        <div className="input-container">
+                            <label htmlFor="role" className="input-label">Role</label>
+                            <Select options={role} value={role.find(option => option.value === data.role)} onChange={(e) => setData({ ...data, role: e.value })} />
+                        </div>
+
+
+
                     </div>
-                    <div className="input-container">
-                        <label htmlFor="user_phone" className="input-label">Phone</label>
-                        <input id="user_phone" name="user_phone" value={data.user_phone} onChange={(e) => setData({ ...data, user_phone: e.target.value })} type="text" autoComplete="user_phone" required
-                            className="input-text"
-                            placeholder="Phone" />
+                    <div>
+                        <button type="submit"
+                            className="submit-button">
+                            Simpan
+                        </button>
+
                     </div>
-                    <div className="input-container">
-                        <label htmlFor="user_username" className="input-label">Username</label>
-                        <input id="user_username" name="user_username" value={data.user_username} onChange={(e) => setData({ ...data, user_username: e.target.value })} type="text" autoComplete="user_username" required
-                            className="input-text"
-                            placeholder="Username" />
-                    </div>
-                    {
-                        dataId ? <></>
-                            :
-                            <div className="input-container">
-                                <label htmlFor="user_password" className="input-label">Password</label>
-                                <input id="user_password" name="user_password" value={data.user_password} onChange={(e) => setData({ ...data, user_password: e.target.value })} type="text" autoComplete="user_password" required={dataId ? false : true}
-                                    className="input-text"
-                                    placeholder="Password" />
-                            </div>
-                    }
-
-                    <div className="input-container">
-                        <label htmlFor="role" className="input-label">Role</label>
-                        <Select options={role} value={role.find(option => option.value === data.role)} onChange={(e) => setData({ ...data, role: e.value })} />
-                    </div>
-
-
-
-                </div>
-                <div>
-                    <button type="submit"
-                        className="submit-button">
-                        Simpan
-                    </button>
-
-                </div>
-            </form>
-        </div>
+                </form>
+            </div>
+        </>
     )
 }
 

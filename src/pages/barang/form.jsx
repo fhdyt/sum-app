@@ -2,8 +2,7 @@ import { useEffect, useState } from "react"
 import axios from "../../api/axios"
 import { getAuthToken } from "../../helpers/auth"
 import { useNavigate, useParams } from "react-router-dom"
-import { SiAlacritty } from "react-icons/si"
-import Select from 'react-select'
+import Loading from "../../components/Loading"
 const Form = () => {
 
     const navigate = useNavigate();
@@ -112,41 +111,44 @@ const Form = () => {
     };
 
     return (
-        <div className="w-md max-w-md space-y-8 mx-auto">
-            <form className="mt-8 space-y-5" onSubmit={handleSubmit} >
-                <input type="hidden" name="remember" value="true" />
-                <div className="rounded-md shadow-sm flex flex-col gap-1">
-                    <div className="input-container">
-                        <label htmlFor="nama" className="input-label">Nama</label>
-                        <input id="nama" name="nama" value={data.nama} onChange={(e) => setData({ ...data, nama: e.target.value })} type="text" autoComplete="nama" required
-                            className="input-text"
-                            placeholder="Nama" />
+        <>
+            <Loading status={isLoading} />
+            <div className="w-md max-w-md space-y-8 mx-auto">
+                <form className="mt-8 space-y-5" onSubmit={handleSubmit} >
+                    <input type="hidden" name="remember" value="true" />
+                    <div className="rounded-md shadow-sm flex flex-col gap-1">
+                        <div className="input-container">
+                            <label htmlFor="nama" className="input-label">Nama</label>
+                            <input id="nama" name="nama" value={data.nama} onChange={(e) => setData({ ...data, nama: e.target.value })} type="text" autoComplete="nama" required
+                                className="input-text"
+                                placeholder="Nama" />
+                        </div>
+                        <div className="input-container">
+                            <label htmlFor="harga" className="input-label">Harga</label>
+                            <input id="harga" name="harga" value={data.harga} onChange={(e) => setData({ ...data, harga: e.target.value })} type="text" autoComplete="harga" required
+                                className="input-text"
+                                placeholder="Harga" />
+                        </div>
+
+                        <div className="input-container">
+                            <label htmlFor="finishing" className="input-label">Gambar</label>
+                            <img src={`${import.meta.env.VITE_CLIENT_API_URL}/${data.gambar}`} className="w-36  object-cover" alt="" />
+
+                            <input type='file' name="bgImg" className="file-input" onChange={handleUpload} />
+                        </div>
+
+
                     </div>
-                    <div className="input-container">
-                        <label htmlFor="harga" className="input-label">Harga</label>
-                        <input id="harga" name="harga" value={data.harga} onChange={(e) => setData({ ...data, harga: e.target.value })} type="text" autoComplete="harga" required
-                            className="input-text"
-                            placeholder="Harga" />
+                    <div>
+                        <button type="submit"
+                            className="submit-button">
+                            Simpan
+                        </button>
+
                     </div>
-
-                    <div className="input-container">
-                        <label htmlFor="finishing" className="input-label">Gambar</label>
-                        <img src={`${import.meta.env.VITE_CLIENT_API_URL}/${data.gambar}`} className="w-36  object-cover" alt="" />
-
-                        <input type='file' name="bgImg" className="file-input" onChange={handleUpload} />
-                    </div>
-
-
-                </div>
-                <div>
-                    <button type="submit"
-                        className="submit-button">
-                        Simpan
-                    </button>
-
-                </div>
-            </form>
-        </div>
+                </form>
+            </div>
+        </>
     )
 }
 

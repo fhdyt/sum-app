@@ -72,7 +72,7 @@ const List = () => {
 
     return (
         <>
-            <Loading isLoading={isLoading} />
+            <Loading status={isLoading} />
             <div className="w-full mx-auto flex flex-col">
                 <div className="w-full">
                     <Link to="/eo/form" className="submit-add w-fit">Tambah</Link>

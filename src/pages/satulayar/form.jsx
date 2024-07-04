@@ -7,6 +7,7 @@ import Select from 'react-select'
 import { BarangContext } from "../../providers/BarangProvider"
 import { MdOutlineClose } from "react-icons/md"
 import { numberFormat, rupiahFormat } from "../../helpers/numberFormat"
+import Loading from "../../components/Loading"
 const Form = () => {
     const getTodayDate = () => {
         const today = new Date();
@@ -205,106 +206,109 @@ const Form = () => {
         // sumGrandTotal();
     }
     return (
-        <div className="max-w-6xl  mx-auto flex-row flex gap-5 items-start">
-            <form className="w-4/6 " onSubmit={handleSubmit} >
-                <input type="hidden" name="remember" value="true" />
-                <div className="rounded-md shadow-sm flex flex-col gap-1">
-                    <div className="input-container">
-                        <label htmlFor="kegiatan" className="input-label">Kegiatan</label>
-                        <input id="kegiatan" name="kegiatan" value={data.kegiatan} onChange={(e) => setData({ ...data, kegiatan: e.target.value })} type="text" autoComplete="kegiatan" required
-                            className="input-text"
-                            placeholder="Kegiatan" />
-                    </div>
-                    <div className="input-container">
-                        <label htmlFor="barang" className="input-label">Barang</label>
-                        <div className="flex flex-row gap-2 w-full">
-                            <Select className="w-full" options={barangOptions} onChange={(e) => setFormBarang({ ...formBarang, total: e.harga * formBarang.qty, barang: { id: e.value, nama: e.nama, gambar: e.gambar, harga: e.harga } })} />
-                            <input id="qty" name="qty" value={formBarang.qty} onChange={(e) => setFormBarang({ ...formBarang, total: formBarang.barang.harga * e.target.value, qty: e.target.value })} type="text"
+        <>
+            <Loading status={isLoading} />
+            <div className="max-w-6xl  mx-auto flex-row flex gap-5 items-start">
+                <form className="w-4/6 " onSubmit={handleSubmit} >
+                    <input type="hidden" name="remember" value="true" />
+                    <div className="rounded-md shadow-sm flex flex-col gap-1">
+                        <div className="input-container">
+                            <label htmlFor="kegiatan" className="input-label">Kegiatan</label>
+                            <input id="kegiatan" name="kegiatan" value={data.kegiatan} onChange={(e) => setData({ ...data, kegiatan: e.target.value })} type="text" autoComplete="kegiatan" required
                                 className="input-text"
-                            />
-                            <a className="submit-button bg-blue-600" onClick={handleAddBarang}>Add</a>
+                                placeholder="Kegiatan" />
                         </div>
-                        <div className="w-full grid-cols-3 grid gap-1">
-
-                            {
-                                barangData.map((item, index) => (
-                                    <div key={index} className="w-full flex flex-row gap-1 rounded-md bg-green-200 overflow-hidden">
-                                        <div className="w-72">
-                                            <img src={`${import.meta.env.VITE_CLIENT_API_URL}/${item.barang['gambar']}`} className="w-full h-full object-cover" />
-                                        </div>
-                                        <div className="flex flex-col justify-center w-full px-2">
-                                            <p className="font-bold text-xs flex flex-row">{item.barang['nama']} {rupiahFormat(item.barang['harga'])}</p>
-                                            <p className="text-xs">{item.qty} Pcs</p>
-                                            <p className="text-xs">{rupiahFormat(item.qty * item.barang['harga'] * data.jumlah_hari)}</p>
-                                        </div>
-                                        <div onClick={() => setBarangData(barangData.filter((_, i) => i !== index))} className=" text-red-600 w-full flex flex-col justify-center items-end px-2">
-                                            <MdOutlineClose />
-                                        </div>
-                                    </div>
-                                ))
-                            }
-                        </div>
-                    </div>
-                    <div className="input-container">
-                        <label htmlFor="tanggal_pemesanan" className="input-label">Tanggal Pemesanan</label>
-                        <input id="tanggal_pemesanan" name="tanggal_pemesanan" value={data.tanggal_pemesanan} onChange={handleTanggal} type="date" autoComplete="tanggal_pemesanan" required
-                            className="input-text"
-                            placeholder="Tanggal Pemesanan" />
-                    </div>
-                    <div className="input-container">
-                        <label htmlFor="tanggal_pengembalian" className="input-label">Tanggal Pengembalian</label>
-                        <input id="tanggal_pengembalian" name="tanggal_pengembalian" value={data.tanggal_pengembalian} onChange={handleTanggal} type="date" autoComplete="tanggal_pengembalian" required
-                            className="input-text"
-                            placeholder="Tanggal Pengembalian" />
-                    </div>
-                    <div className="input-container">
-                        <label htmlFor="pengantaran" className="input-label">Pengantaran</label>
-                        <Select options={pengantaran} value={pengantaran.find(option => option.value === data.pengantaran)} onChange={handlePengantaran} />
-                    </div>
-                    {
-                        data.pengantaran === 'Jemput' ?
-                            <></>
-                            :
-                            <div className="input-container">
-                                <label htmlFor="lokasi" className="input-label">Lokasi</label>
-                                <Select options={lokasi} value={lokasi.find(option => option.value === data.lokasi)} onChange={handleLokasi} />
+                        <div className="input-container">
+                            <label htmlFor="barang" className="input-label">Barang</label>
+                            <div className="flex flex-row gap-2 w-full">
+                                <Select className="w-full" options={barangOptions} onChange={(e) => setFormBarang({ ...formBarang, total: e.harga * formBarang.qty, barang: { id: e.value, nama: e.nama, gambar: e.gambar, harga: e.harga } })} />
+                                <input id="qty" name="qty" value={formBarang.qty} onChange={(e) => setFormBarang({ ...formBarang, total: formBarang.barang.harga * e.target.value, qty: e.target.value })} type="text"
+                                    className="input-text"
+                                />
+                                <a className="submit-button bg-blue-600" onClick={handleAddBarang}>Add</a>
                             </div>
-                    }
+                            <div className="w-full grid-cols-3 grid gap-1">
 
-                </div>
-                <div>
-                    <button type="submit"
-                        className="submit-button">
-                        Simpan
-                    </button>
-                </div>
-            </form>
-            <div className="w-2/6  text-xs">
-                <div className="w-full flex-col flex gap-2">
-                    <div className="flex flex-row justify-between ">
-                        <p className="text-left">Jumlah Hari</p>
-                        <p>{data.jumlah_hari}</p>
+                                {
+                                    barangData.map((item, index) => (
+                                        <div key={index} className="w-full flex flex-row gap-1 rounded-md bg-green-200 overflow-hidden">
+                                            <div className="w-72">
+                                                <img src={`${import.meta.env.VITE_CLIENT_API_URL}/${item.barang['gambar']}`} className="w-full h-full object-cover" />
+                                            </div>
+                                            <div className="flex flex-col justify-center w-full px-2">
+                                                <p className="font-bold text-xs flex flex-row">{item.barang['nama']} {rupiahFormat(item.barang['harga'])}</p>
+                                                <p className="text-xs">{item.qty} Pcs</p>
+                                                <p className="text-xs">{rupiahFormat(item.qty * item.barang['harga'] * data.jumlah_hari)}</p>
+                                            </div>
+                                            <div onClick={() => setBarangData(barangData.filter((_, i) => i !== index))} className=" text-red-600 w-full flex flex-col justify-center items-end px-2">
+                                                <MdOutlineClose />
+                                            </div>
+                                        </div>
+                                    ))
+                                }
+                            </div>
+                        </div>
+                        <div className="input-container">
+                            <label htmlFor="tanggal_pemesanan" className="input-label">Tanggal Pemesanan</label>
+                            <input id="tanggal_pemesanan" name="tanggal_pemesanan" value={data.tanggal_pemesanan} onChange={handleTanggal} type="date" autoComplete="tanggal_pemesanan" required
+                                className="input-text"
+                                placeholder="Tanggal Pemesanan" />
+                        </div>
+                        <div className="input-container">
+                            <label htmlFor="tanggal_pengembalian" className="input-label">Tanggal Pengembalian</label>
+                            <input id="tanggal_pengembalian" name="tanggal_pengembalian" value={data.tanggal_pengembalian} onChange={handleTanggal} type="date" autoComplete="tanggal_pengembalian" required
+                                className="input-text"
+                                placeholder="Tanggal Pengembalian" />
+                        </div>
+                        <div className="input-container">
+                            <label htmlFor="pengantaran" className="input-label">Pengantaran</label>
+                            <Select options={pengantaran} value={pengantaran.find(option => option.value === data.pengantaran)} onChange={handlePengantaran} />
+                        </div>
+                        {
+                            data.pengantaran === 'Jemput' ?
+                                <></>
+                                :
+                                <div className="input-container">
+                                    <label htmlFor="lokasi" className="input-label">Lokasi</label>
+                                    <Select options={lokasi} value={lokasi.find(option => option.value === data.lokasi)} onChange={handleLokasi} />
+                                </div>
+                        }
+
                     </div>
-                    <div className="flex flex-row justify-between  ">
-                        <p className="text-left">Total Barang</p>
-                        <p>{rupiahFormat(data.total_barang)}</p>
+                    <div>
+                        <button type="submit"
+                            className="submit-button">
+                            Simpan
+                        </button>
                     </div>
-                    <div className="flex flex-row justify-between  ">
-                        <p className="text-left">Harga Pengantaran</p>
-                        <p>{rupiahFormat(data.pengantaran_harga)}</p>
-                    </div>
-                    <div className="flex flex-row justify-between  ">
-                        <p className="text-left">Harga Lokasi</p>
-                        <p>{rupiahFormat(data.lokasi_harga)}</p>
-                    </div>
-                    <div className="divider divider-end">+</div>
-                    <div className="flex flex-row justify-between font-bold text-base  ">
-                        <p className="text-left">Total</p>
-                        <p>{rupiahFormat(data.total)}</p>
+                </form>
+                <div className="w-2/6  text-xs">
+                    <div className="w-full flex-col flex gap-2">
+                        <div className="flex flex-row justify-between ">
+                            <p className="text-left">Jumlah Hari</p>
+                            <p>{data.jumlah_hari}</p>
+                        </div>
+                        <div className="flex flex-row justify-between  ">
+                            <p className="text-left">Total Barang</p>
+                            <p>{rupiahFormat(data.total_barang)}</p>
+                        </div>
+                        <div className="flex flex-row justify-between  ">
+                            <p className="text-left">Harga Pengantaran</p>
+                            <p>{rupiahFormat(data.pengantaran_harga)}</p>
+                        </div>
+                        <div className="flex flex-row justify-between  ">
+                            <p className="text-left">Harga Lokasi</p>
+                            <p>{rupiahFormat(data.lokasi_harga)}</p>
+                        </div>
+                        <div className="divider divider-end">+</div>
+                        <div className="flex flex-row justify-between font-bold text-base  ">
+                            <p className="text-left">Total</p>
+                            <p>{rupiahFormat(data.total)}</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     )
 }
 

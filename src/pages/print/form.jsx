@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import { SiAlacritty } from "react-icons/si"
 import Select from 'react-select'
 import { rupiahFormat } from "../../helpers/numberFormat"
+import Loading from "../../components/Loading"
 const Form = () => {
 
     const navigate = useNavigate();
@@ -147,76 +148,79 @@ const Form = () => {
         setData({ ...data, total: total })
     }, [data.ukuran_panjang, data.ukuran_lebar, data.bahan_harga])
     return (
-        <div className="w-md max-w-md space-y-8 mx-auto">
-            <form className="mt-8 space-y-5" onSubmit={handleSubmit} >
-                <input type="hidden" name="remember" value="true" />
-                <div className="rounded-md shadow-sm flex flex-col gap-1">
-                    <div className="input-container">
-                        <label htmlFor="kegiatan" className="input-label">Kegiatan</label>
-                        <input id="kegiatan" name="kegiatan" value={data.kegiatan} onChange={(e) => setData({ ...data, kegiatan: e.target.value })} type="text" autoComplete="kegiatan" required
-                            className="input-text"
-                            placeholder="Kegiatan" />
-                    </div>
-                    <div className="input-container">
-                        <label htmlFor="cetak" className="input-label">Cetak</label>
-                        <Select options={cetak} value={cetak.find(option => option.value === data.cetak)} onChange={(e) => setData({ ...data, cetak: e.value })} />
-                    </div>
-                    <div className="input-container">
-                        <label htmlFor="bahan" className="input-label">Bahan</label>
-                        <Select options={bahan} value={bahan.find(option => option.value === data.bahan)} onChange={(e) => setData({ ...data, bahan: e.value, bahan_harga: e.harga })} />
-                    </div>
+        <>
+            <Loading status={isLoading} />
+            <div className="w-md max-w-md space-y-8 mx-auto">
+                <form className="mt-8 space-y-5" onSubmit={handleSubmit} >
+                    <input type="hidden" name="remember" value="true" />
+                    <div className="rounded-md shadow-sm flex flex-col gap-1">
+                        <div className="input-container">
+                            <label htmlFor="kegiatan" className="input-label">Kegiatan</label>
+                            <input id="kegiatan" name="kegiatan" value={data.kegiatan} onChange={(e) => setData({ ...data, kegiatan: e.target.value })} type="text" autoComplete="kegiatan" required
+                                className="input-text"
+                                placeholder="Kegiatan" />
+                        </div>
+                        <div className="input-container">
+                            <label htmlFor="cetak" className="input-label">Cetak</label>
+                            <Select options={cetak} value={cetak.find(option => option.value === data.cetak)} onChange={(e) => setData({ ...data, cetak: e.value })} />
+                        </div>
+                        <div className="input-container">
+                            <label htmlFor="bahan" className="input-label">Bahan</label>
+                            <Select options={bahan} value={bahan.find(option => option.value === data.bahan)} onChange={(e) => setData({ ...data, bahan: e.value, bahan_harga: e.harga })} />
+                        </div>
 
-                    <div className="input-container">
-                        <label htmlFor="ukuran_panjang" className="input-label">Panjang Ukuran</label>
-                        <input id="ukuran_panjang" name="ukuran_panjang" value={data.ukuran_panjang} onChange={(e) => setData({ ...data, ukuran_panjang: e.target.value })} type="text" autoComplete="ukuran_panjang" required
-                            className="input-text"
-                            placeholder="Panjang Ukuran" />
-                    </div>
-                    <div className="input-container">
-                        <label htmlFor="ukuran_lebar" className="input-label">Lebar Ukuran</label>
-                        <input id="ukuran_lebar" name="ukuran_lebar" value={data.ukuran_lebar} onChange={(e) => setData({ ...data, ukuran_lebar: e.target.value })} type="text" autoComplete="ukuran_lebar" required
-                            className="input-text"
-                            placeholder="Lebar Ukuran" />
-                    </div>
-                    <div className="input-container">
-                        <label htmlFor="finishing" className="input-label">Finishing</label>
-                        <Select options={finishing} value={finishing.find(option => option.value === data.finishing)} onChange={(e) => setData({ ...data, finishing: e.value })} />
-                    </div>
-                    <div className="input-container">
-                        <label htmlFor="finishing" className="input-label">Desain</label>
-                        <img src={`${import.meta.env.VITE_CLIENT_API_URL}/${data.desain}`} className="w-36  object-cover" alt="" />
+                        <div className="input-container">
+                            <label htmlFor="ukuran_panjang" className="input-label">Panjang Ukuran</label>
+                            <input id="ukuran_panjang" name="ukuran_panjang" value={data.ukuran_panjang} onChange={(e) => setData({ ...data, ukuran_panjang: e.target.value })} type="text" autoComplete="ukuran_panjang" required
+                                className="input-text"
+                                placeholder="Panjang Ukuran" />
+                        </div>
+                        <div className="input-container">
+                            <label htmlFor="ukuran_lebar" className="input-label">Lebar Ukuran</label>
+                            <input id="ukuran_lebar" name="ukuran_lebar" value={data.ukuran_lebar} onChange={(e) => setData({ ...data, ukuran_lebar: e.target.value })} type="text" autoComplete="ukuran_lebar" required
+                                className="input-text"
+                                placeholder="Lebar Ukuran" />
+                        </div>
+                        <div className="input-container">
+                            <label htmlFor="finishing" className="input-label">Finishing</label>
+                            <Select options={finishing} value={finishing.find(option => option.value === data.finishing)} onChange={(e) => setData({ ...data, finishing: e.value })} />
+                        </div>
+                        <div className="input-container">
+                            <label htmlFor="finishing" className="input-label">Desain</label>
+                            <img src={`${import.meta.env.VITE_CLIENT_API_URL}/${data.desain}`} className="w-36  object-cover" alt="" />
 
-                        <input type='file' className="file-input" name="bgImg" onChange={handleUpload} />
-                    </div>
-                    <div className="input-container text-xs">
-                        <div className="w-full flex-col flex gap-2">
-                            <div className="flex flex-row justify-between ">
-                                <p className="text-left">Harga Bahan</p>
-                                <p>{rupiahFormat(data.bahan_harga)}</p>
-                            </div>
-                            <div className="flex flex-row justify-between  ">
-                                <p className="text-left">Luas</p>
-                                <p>{(data.ukuran_panjang * data.ukuran_lebar)}</p>
-                            </div>
-                            <div className="divider divider-end">+</div>
-                            <div className="flex flex-row justify-between font-bold text-base  ">
-                                <p className="text-left">Total</p>
-                                <p>{rupiahFormat(data.total)}</p>
+                            <input type='file' className="file-input" name="bgImg" onChange={handleUpload} />
+                        </div>
+                        <div className="input-container text-xs">
+                            <div className="w-full flex-col flex gap-2">
+                                <div className="flex flex-row justify-between ">
+                                    <p className="text-left">Harga Bahan</p>
+                                    <p>{rupiahFormat(data.bahan_harga)}</p>
+                                </div>
+                                <div className="flex flex-row justify-between  ">
+                                    <p className="text-left">Luas</p>
+                                    <p>{(data.ukuran_panjang * data.ukuran_lebar)}</p>
+                                </div>
+                                <div className="divider divider-end">+</div>
+                                <div className="flex flex-row justify-between font-bold text-base  ">
+                                    <p className="text-left">Total</p>
+                                    <p>{rupiahFormat(data.total)}</p>
+                                </div>
                             </div>
                         </div>
+
+
                     </div>
+                    <div>
+                        <button type="submit"
+                            className="submit-button">
+                            Simpan
+                        </button>
 
-
-                </div>
-                <div>
-                    <button type="submit"
-                        className="submit-button">
-                        Simpan
-                    </button>
-
-                </div>
-            </form>
-        </div>
+                    </div>
+                </form>
+            </div>
+        </>
     )
 }
 

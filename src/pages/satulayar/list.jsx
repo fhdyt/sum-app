@@ -71,7 +71,7 @@ const List = () => {
 
     return (
         <>
-            <Loading isLoading={isLoading} />
+            <Loading status={isLoading} />
             <div className="max-w-5xl mx-auto flex flex-col">
                 <div className="w-full">
                     <Link to="/satulayar/form" className="submit-add w-fit">Tambah</Link>

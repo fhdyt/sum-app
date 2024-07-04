@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { getAuthToken } from "../../../helpers/auth"
 import axios from "../../../api/axios"
+import Loading from "../../../components/Loading"
 
 const TabEo = () => {
     const [data, setData] = useState([])
@@ -34,6 +35,7 @@ const TabEo = () => {
     }
     return (
         <>
+            <Loading status={isLoading} />
             <table className="table">
                 {/* head */}
                 <thead>

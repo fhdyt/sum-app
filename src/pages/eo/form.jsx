@@ -4,6 +4,7 @@ import { getAuthToken } from "../../helpers/auth"
 import { useNavigate, useParams } from "react-router-dom"
 import { SiAlacritty } from "react-icons/si"
 import Select from 'react-select'
+import Loading from "../../components/Loading"
 const Form = () => {
 
     const navigate = useNavigate();
@@ -118,89 +119,92 @@ const Form = () => {
 
     }
     return (
-        <div className="w-md max-w-md space-y-8 mx-auto">
-            <form className="mt-8 space-y-5" onSubmit={handleSubmit} >
-                <input type="hidden" name="remember" value="true" />
-                <div className="rounded-md shadow-sm flex flex-col gap-1">
-                    <div className="input-container">
-                        <label htmlFor="kegiatan" className="input-label">Kegiatan</label>
-                        <input id="kegiatan" name="kegiatan" value={data.kegiatan} onChange={(e) => setData({ ...data, kegiatan: e.target.value })} type="text" autoComplete="kegiatan" required
-                            className="input-text"
-                            placeholder="Kegiatan" />
-                    </div>
-                    <div className="input-container">
-                        <label htmlFor="venue" className="input-label">Venue</label>
-                        <Select options={venue} value={venue.find(option => option.value === data.venue)} onChange={(e) => setData({ ...data, venue: e.value })} />
-                    </div>
-                    <div className="input-container">
-                        <label htmlFor="konsep" className="input-label">Konsep</label>
-                        <textarea id="konsep" rows="4" name="konsep" value={data.konsep} onChange={(e) => setData({ ...data, konsep: e.target.value })} type="text" autoComplete="konsep" required
-                            className="input-text"
-                            placeholder="Konsep" />
-                    </div>
-                    <div className="input-container">
-                        <label htmlFor="venue_panjang" className="input-label">Panjang Venue</label>
-                        <input id="venue_panjang" name="venue_panjang" value={data.venue_panjang} onChange={(e) => setData({ ...data, venue_panjang: e.target.value })} type="text" autoComplete="venue_panjang" required
-                            className="input-text"
-                            placeholder="Panjang Venue" />
-                    </div>
-                    <div className="input-container">
-                        <label htmlFor="venue_lebar" className="input-label">Lebar Venue</label>
-                        <input id="venue_lebar" name="venue_lebar" value={data.venue_lebar} onChange={(e) => setData({ ...data, venue_lebar: e.target.value })} type="text" autoComplete="venue_lebar" required
-                            className="input-text"
-                            placeholder="Lebar Venue" />
-                    </div>
-                    <div className="input-container">
-                        <label htmlFor="kapasitas_orang" className="input-label">Kapasitas Orang</label>
-                        <input id="kapasitas_orang" name="kapasitas_orang" value={data.kapasitas_orang} onChange={(e) => setData({ ...data, kapasitas_orang: e.target.value })} type="text" autoComplete="kapasitas_orang" required
-                            className="input-text"
-                            placeholder="Kapasitas Orang" />
-                    </div>
-                    <div className="input-container">
-                        <label htmlFor="panggung_panjang" className="input-label">Panjang Panggung</label>
-                        <input id="panggung_panjang" name="panggung_panjang" value={data.panggung_panjang} onChange={(e) => setData({ ...data, panggung_panjang: e.target.value })} type="text" autoComplete="panggung_panjang" required
-                            className="input-text"
-                            placeholder="Panjang Panggung" />
-                    </div>
-                    <div className="input-container">
-                        <label htmlFor="panggung_lebar" className="input-label">Lebar Panggung</label>
-                        <input id="panggung_lebar" name="panggung_lebar" value={data.panggung_lebar} onChange={(e) => setData({ ...data, panggung_lebar: e.target.value })} type="text" autoComplete="panggung_lebar" required
-                            className="input-text"
-                            placeholder="Lebar Panggung" />
-                    </div>
-                    <div className="input-container">
-                        <label htmlFor="kapasitas_sound" className="input-label">Kapasitas Sound</label>
-                        <input id="kapasitas_sound" name="kapasitas_sound" value={data.kapasitas_sound} onChange={(e) => setData({ ...data, kapasitas_sound: e.target.value })} type="text" autoComplete="kapasitas_sound" required
-                            className="input-text"
-                            placeholder="Kapasitas Sound" />
-                    </div>
-                    <div className="input-container">
-                        <label htmlFor="venue_panjang" className="input-label">Kelengkapan</label>
-                        <div className="grid grid-cols-3 gap-3 border-2 p-2 rounded-md">
-                            {options.map((option, index) => (
-                                <div key={index} className="text-sm">
-                                    <label className=" flex flex-row gap-2 items-center">
-                                        <input
-                                            type="checkbox"
-                                            name={option}
-                                            checked={checkedItems[option] || false}
-                                            onChange={handleChange}
-                                        />
-                                        {option}
-                                    </label>
-                                </div>
-                            ))}
+        <>
+            <Loading status={isLoading} />
+            <div className="w-md max-w-md space-y-8 mx-auto">
+                <form className="mt-8 space-y-5" onSubmit={handleSubmit} >
+                    <input type="hidden" name="remember" value="true" />
+                    <div className="rounded-md shadow-sm flex flex-col gap-1">
+                        <div className="input-container">
+                            <label htmlFor="kegiatan" className="input-label">Kegiatan</label>
+                            <input id="kegiatan" name="kegiatan" value={data.kegiatan} onChange={(e) => setData({ ...data, kegiatan: e.target.value })} type="text" autoComplete="kegiatan" required
+                                className="input-text"
+                                placeholder="Kegiatan" />
+                        </div>
+                        <div className="input-container">
+                            <label htmlFor="venue" className="input-label">Venue</label>
+                            <Select options={venue} value={venue.find(option => option.value === data.venue)} onChange={(e) => setData({ ...data, venue: e.value })} />
+                        </div>
+                        <div className="input-container">
+                            <label htmlFor="konsep" className="input-label">Konsep</label>
+                            <textarea id="konsep" rows="4" name="konsep" value={data.konsep} onChange={(e) => setData({ ...data, konsep: e.target.value })} type="text" autoComplete="konsep" required
+                                className="input-text"
+                                placeholder="Konsep" />
+                        </div>
+                        <div className="input-container">
+                            <label htmlFor="venue_panjang" className="input-label">Panjang Venue</label>
+                            <input id="venue_panjang" name="venue_panjang" value={data.venue_panjang} onChange={(e) => setData({ ...data, venue_panjang: e.target.value })} type="text" autoComplete="venue_panjang" required
+                                className="input-text"
+                                placeholder="Panjang Venue" />
+                        </div>
+                        <div className="input-container">
+                            <label htmlFor="venue_lebar" className="input-label">Lebar Venue</label>
+                            <input id="venue_lebar" name="venue_lebar" value={data.venue_lebar} onChange={(e) => setData({ ...data, venue_lebar: e.target.value })} type="text" autoComplete="venue_lebar" required
+                                className="input-text"
+                                placeholder="Lebar Venue" />
+                        </div>
+                        <div className="input-container">
+                            <label htmlFor="kapasitas_orang" className="input-label">Kapasitas Orang</label>
+                            <input id="kapasitas_orang" name="kapasitas_orang" value={data.kapasitas_orang} onChange={(e) => setData({ ...data, kapasitas_orang: e.target.value })} type="text" autoComplete="kapasitas_orang" required
+                                className="input-text"
+                                placeholder="Kapasitas Orang" />
+                        </div>
+                        <div className="input-container">
+                            <label htmlFor="panggung_panjang" className="input-label">Panjang Panggung</label>
+                            <input id="panggung_panjang" name="panggung_panjang" value={data.panggung_panjang} onChange={(e) => setData({ ...data, panggung_panjang: e.target.value })} type="text" autoComplete="panggung_panjang" required
+                                className="input-text"
+                                placeholder="Panjang Panggung" />
+                        </div>
+                        <div className="input-container">
+                            <label htmlFor="panggung_lebar" className="input-label">Lebar Panggung</label>
+                            <input id="panggung_lebar" name="panggung_lebar" value={data.panggung_lebar} onChange={(e) => setData({ ...data, panggung_lebar: e.target.value })} type="text" autoComplete="panggung_lebar" required
+                                className="input-text"
+                                placeholder="Lebar Panggung" />
+                        </div>
+                        <div className="input-container">
+                            <label htmlFor="kapasitas_sound" className="input-label">Kapasitas Sound</label>
+                            <input id="kapasitas_sound" name="kapasitas_sound" value={data.kapasitas_sound} onChange={(e) => setData({ ...data, kapasitas_sound: e.target.value })} type="text" autoComplete="kapasitas_sound" required
+                                className="input-text"
+                                placeholder="Kapasitas Sound" />
+                        </div>
+                        <div className="input-container">
+                            <label htmlFor="venue_panjang" className="input-label">Kelengkapan</label>
+                            <div className="grid grid-cols-3 gap-3 border-2 p-2 rounded-md">
+                                {options.map((option, index) => (
+                                    <div key={index} className="text-sm">
+                                        <label className=" flex flex-row gap-2 items-center">
+                                            <input
+                                                type="checkbox"
+                                                name={option}
+                                                checked={checkedItems[option] || false}
+                                                onChange={handleChange}
+                                            />
+                                            {option}
+                                        </label>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div>
-                    <button type="submit"
-                        className="submit-button">
-                        Simpan
-                    </button>
-                </div>
-            </form>
-        </div>
+                    <div>
+                        <button type="submit"
+                            className="submit-button">
+                            Simpan
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </>
     )
 }
 

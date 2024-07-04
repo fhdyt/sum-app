@@ -2,6 +2,7 @@ import './App.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { checkAuthLoader } from './helpers/auth'
 import LoginPage from './pages/login/page.jsx';
+import RegisterPage from './pages/register/page.jsx';
 import DashboradPage from './pages/dashborad/page.jsx';
 import Home from './pages/home/page.jsx';
 
@@ -95,6 +96,10 @@ const router = createBrowserRouter([
   {
     path: 'login',
     element: <LoginPage />
+  },
+  {
+    path: 'register',
+    element: <RegisterPage />
   },
 
 ])

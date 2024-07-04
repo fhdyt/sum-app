@@ -3,6 +3,7 @@ import { getAuthToken } from "../../../helpers/auth"
 import axios from "../../../api/axios"
 import { rupiahFormat } from "../../../helpers/numberFormat"
 import { dateFormat } from "../../../helpers/dateTimeFormat"
+import Loading from "../../../components/Loading"
 
 const TabWork = () => {
     const [data, setData] = useState([])
@@ -36,6 +37,7 @@ const TabWork = () => {
     }
     return (
         <>
+            <Loading status={isLoading} />
             <table className="table">
                 {/* head */}
                 <thead>
