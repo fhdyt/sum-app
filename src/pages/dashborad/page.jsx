@@ -71,6 +71,7 @@ function MenuItem({ item }) {
 }
 
 const Page = () => {
+    const navigate = useNavigate();
 
     useEffect(() => {
         const checkTokenAndNavigate = async () => {
@@ -78,12 +79,16 @@ const Page = () => {
             if (!checkToken) {
                 localStorage.clear();
                 navigate('/login');
+                console.log('token not found');
+            }
+            else {
+                console.log('token found');
             }
         };
 
         checkTokenAndNavigate();
     }, [location.pathname, navigate]);
-    const navigate = useNavigate();
+
     const logoutAction = () => {
         localStorage.clear()
         navigate("/login")

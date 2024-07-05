@@ -39,14 +39,17 @@ export async function verifyToken() {
                 withCredentials: true
             }
         );
-        if (!response.data.status) {
-            localStorage.removeItem('token')
+        console.log(response.status)
+        if (!response.status) {
+            // localStorage.removeItem('token')
             return false
         }
         else {
+
             return true
         }
     } catch (error) {
+        console.log(error)
         return false
     }
 

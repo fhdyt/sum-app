@@ -45,7 +45,7 @@ const List = () => {
         setIsLoading(true)
         try {
             const token = getAuthToken()
-            await axios.delete('/barang/' + id,
+            await axios.delete('/auth/' + id,
                 {
                     headers: {
                         'Content-Type': 'application/json',
@@ -55,6 +55,7 @@ const List = () => {
                 }
             );
             setData(data.filter((item) => item.id !== id))
+            setIsLoading(false)
         } catch (err) {
             setIsLoading(false)
             console.error(err)
