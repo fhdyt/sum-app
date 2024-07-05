@@ -112,6 +112,7 @@ const Form = () => {
     }
 
     const handleUpload = async (e) => {
+        setIsLoading(true)
         try {
             e.preventDefault();
             const formData = new FormData();
@@ -138,7 +139,10 @@ const Form = () => {
                 ...data,
                 desain: result.data.img
             });
+
+            setIsLoading(false)
         } catch (err) {
+            setIsLoading(false)
             console.error(err);
         }
     };

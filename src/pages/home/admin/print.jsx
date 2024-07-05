@@ -66,9 +66,9 @@ const TabPrint = () => {
                                 <td>{rupiahFormat(item.total)}</td>
                                 <td><img src={`${import.meta.env.VITE_CLIENT_API_URL}/${item.desain}`} className="w-14  object-cover" alt="" /></td>
                                 <td>
-                                    {item.user['user_name']}
+                                    {item.user ? item.user['user_name'] : '-'}
                                     <br />
-                                    {item.user['user_phone']}
+                                    {item.user ? item.user['user_phone'] : '-'}
                                 </td>
                             </tr>
                         ))

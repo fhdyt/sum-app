@@ -71,9 +71,9 @@ const TabSatulayar = () => {
                                 <td>{item.lokasi}<br />{rupiahFormat(item.lokasi_harga)}</td>
                                 <td>{rupiahFormat(item.total)}</td>
                                 <td>
-                                    {item.user['user_name']}
+                                    {item.user ? item.user['user_name'] : '-'}
                                     <br />
-                                    {item.user['user_phone']}
+                                    {item.user ? item.user['user_phone'] : '-'}
                                 </td>
                             </tr>
                         ))
