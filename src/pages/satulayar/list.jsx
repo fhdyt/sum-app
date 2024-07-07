@@ -106,7 +106,7 @@ const List = () => {
                                     </Link>
                                     </td>
                                     <td>{item.jumlah_hari} Hari<br />{dateFormat(item.tanggal_pemesanan)} - {dateFormat(item.tanggal_pengembalian)}</td>
-                                    <td>{item.pengantaran}<br />{rupiahFormat(item.pengantaran_harga)}</td>
+                                    <td>{item.pengantaran}</td>
                                     <td>{item.lokasi}<br />{rupiahFormat(item.lokasi_harga)}</td>
                                     <td>{rupiahFormat(item.total)}</td>
                                     <td><p onClick={() => cofirmDelete(item.id)} className="text-red-700"><CiTrash /></p></td>

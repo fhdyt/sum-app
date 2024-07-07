@@ -25,7 +25,6 @@ const Form = () => {
         tanggal_pengembalian: '',
         jumlah_hari: 0,
         pengantaran: '',
-        pengantaran_harga: 0,
         lokasi: '',
         lokasi_harga: 0,
         total_barang: 0,
@@ -70,12 +69,12 @@ const Form = () => {
 
     useEffect(() => {
         console.log('Running sumGrandTotal');
-        const grandTotal = (data.jumlah_hari * data.total_barang) + (data.pengantaran_harga + data.lokasi_harga);
+        const grandTotal = (data.jumlah_hari * data.total_barang) + (data.lokasi_harga);
         setData(prevData => ({
             ...prevData,
             total: grandTotal
         }));
-    }, [data.jumlah_hari, data.total_barang, data.pengantaran_harga, data.lokasi_harga]);
+    }, [data.jumlah_hari, data.total_barang, , data.lokasi_harga]);
     const fetchData = async () => {
         setIsLoading(true)
         try {
@@ -98,7 +97,6 @@ const Form = () => {
                 tanggal_pengembalian: response.data.tanggal_pengembalian,
                 jumlah_hari: response.data.jumlah_hari,
                 pengantaran: response.data.pengantaran,
-                pengantaran_harga: response.data.pengantaran_harga,
                 lokasi: response.data.lokasi,
                 lokasi_harga: response.data.lokasi_harga,
                 total_barang: response.data.total_barang,
@@ -180,7 +178,7 @@ const Form = () => {
     };
 
     const sumGrandTotal = () => {
-        const grandTotal = (data.jumlah_hari * data.total_barang) + (data.pengantaran_harga + data.lokasi_harga);
+        const grandTotal = (data.jumlah_hari * data.total_barang) + (data.lokasi_harga);
         setData({
             ...data,
             total: grandTotal
@@ -189,7 +187,7 @@ const Form = () => {
 
     const handlePengantaran = (e) => {
         console.log(e)
-        setData({ ...data, pengantaran: e.value, pengantaran_harga: e.harga })
+        setData({ ...data, pengantaran: e.value })
         // if (e.value === 'Jemput') {
         //     setData({ ...data, lokasi: '', lokasi_harga: 0 })
         // }
@@ -292,10 +290,10 @@ const Form = () => {
                             <p className="text-left">Total Barang</p>
                             <p>{rupiahFormat(data.total_barang)}</p>
                         </div>
-                        <div className="flex flex-row justify-between  ">
+                        {/* <div className="flex flex-row justify-between  ">
                             <p className="text-left">Harga Pengantaran</p>
                             <p>{rupiahFormat(data.pengantaran_harga)}</p>
-                        </div>
+                        </div> */}
                         <div className="flex flex-row justify-between  ">
                             <p className="text-left">Harga Lokasi</p>
                             <p>{rupiahFormat(data.lokasi_harga)}</p>
