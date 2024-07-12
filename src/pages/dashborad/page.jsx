@@ -76,6 +76,7 @@ const Page = () => {
     useEffect(() => {
         const checkTokenAndNavigate = async () => {
             const checkToken = await verifyToken();
+            console.log(checkToken);
             if (!checkToken) {
                 localStorage.clear();
                 navigate('/login');

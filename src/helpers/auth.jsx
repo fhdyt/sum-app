@@ -30,7 +30,7 @@ export async function verifyToken() {
 
     const token = getAuthToken()
     try {
-        const response = await axios.get('/auth/verify',
+        const response = await axios.get('/auth/verify/user',
             {
                 headers: {
                     'Content-Type': 'application/json',
@@ -39,13 +39,15 @@ export async function verifyToken() {
                 withCredentials: true
             }
         );
-        console.log(response.status)
-        if (!response.status) {
+        // console.log("respon", response.data.status)
+        console.log("respon login", response)
+        if (!response.data.status) {
             // localStorage.removeItem('token')
+            console.log('invalid token')
             return false
         }
         else {
-
+            console.log('valid token')
             return true
         }
     } catch (error) {

@@ -96,10 +96,9 @@ const List = () => {
                                     <th>{index + 1}</th>
                                     <td><Link to={`form/${item.id}`}><b>{item.kegiatan}</b><br />
                                         <div className="flex flex-row gap-1 mt-2 text-xs">
-
                                             {
                                                 item.barang.map((itemBarang, index) => (
-                                                    <p className="border border-slate-800 bg-slate-800 text-white px-4 py-0.5 rounded-full" key={index}>{itemBarang.barang['nama']}</p>
+                                                    <p className="border border-slate-800 bg-slate-800 text-white px-4 py-0.5 rounded-full" key={index}>{itemBarang.barang != null ? itemBarang.barang['nama'] : '-'}</p>
                                                 ))
                                             }
                                         </div>
