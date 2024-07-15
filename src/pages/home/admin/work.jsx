@@ -4,6 +4,9 @@ import axios from "../../../api/axios"
 import { rupiahFormat } from "../../../helpers/numberFormat"
 import { dateFormat } from "../../../helpers/dateTimeFormat"
 import Loading from "../../../components/Loading"
+import { getStatusClass } from "../../../helpers/statusColor"
+import StatusOrder from "../../../components/StatusOrder"
+import DetailUser from "../../../components/DetailUser"
 
 const TabWork = () => {
     const [data, setData] = useState([])
@@ -50,6 +53,7 @@ const TabWork = () => {
                         <th>Detail</th>
                         <th>Finishing</th>
                         <th>Desain</th>
+                        <th>User</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -59,6 +63,9 @@ const TabWork = () => {
                             <tr key={item.id}>
                                 <th>{index + 1}</th>
                                 <td><b>{item.perusahaan}</b>
+                                    <br />
+                                    <StatusOrder id={item.id} status={item.status} pembayaran={item.pembayaran} onProcessComplete={fetchData} table="work" />
+
                                 </td>
                                 <td>{item.order}</td>
                                 <td>{item.bahan}</td>
@@ -67,9 +74,8 @@ const TabWork = () => {
                                 <td>{item.finishing}</td>
                                 <td><img src={`${import.meta.env.VITE_CLIENT_API_URL}/${item.desain}`} className="w-14  object-cover" alt="" /></td>
                                 <td>
-                                    {item.user ? item.user['user_name'] : '-'}
-                                    <br />
-                                    {item.user ? item.user['user_phone'] : '-'}
+                                    {item.user ? <DetailUser nama={item.user['user_name']} phone={item.user['user_phone']} /> : '-'}
+
                                 </td>
                             </tr>
                         ))
@@ -85,6 +91,7 @@ const TabWork = () => {
                         <th>Detail</th>
                         <th>Finishing</th>
                         <th>Desain</th>
+                        <th>User</th>
                         <th></th>
                     </tr>
                 </tfoot>

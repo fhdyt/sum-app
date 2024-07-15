@@ -3,6 +3,9 @@ import { getAuthToken } from "../../../helpers/auth"
 import axios from "../../../api/axios"
 import { rupiahFormat } from "../../../helpers/numberFormat"
 import Loading from "../../../components/Loading"
+import { getStatusClass } from "../../../helpers/statusColor"
+import StatusOrder from "../../../components/StatusOrder"
+import DetailUser from "../../../components/DetailUser"
 
 const TabPrint = () => {
     const [data, setData] = useState([])
@@ -49,6 +52,7 @@ const TabPrint = () => {
                         <th>Finishing</th>
                         <th>Total</th>
                         <th>Desain</th>
+                        <th>User</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -58,6 +62,9 @@ const TabPrint = () => {
                             <tr key={item.id}>
                                 <th>{index + 1}</th>
                                 <td><b>{item.kegiatan}</b>
+                                    <br />
+                                    <StatusOrder id={item.id} status={item.status} pembayaran={item.pembayaran} onProcessComplete={fetchData} table="print" />
+
                                 </td>
                                 <td>{item.cetak}</td>
                                 <td>{item.bahan}<br /> {rupiahFormat(item.bahan_harga)}</td>
@@ -66,9 +73,8 @@ const TabPrint = () => {
                                 <td>{rupiahFormat(item.total)}</td>
                                 <td><img src={`${import.meta.env.VITE_CLIENT_API_URL}/${item.desain}`} className="w-14  object-cover" alt="" /></td>
                                 <td>
-                                    {item.user ? item.user['user_name'] : '-'}
-                                    <br />
-                                    {item.user ? item.user['user_phone'] : '-'}
+                                    {item.user ? <DetailUser nama={item.user['user_name']} phone={item.user['user_phone']} /> : '-'}
+
                                 </td>
                             </tr>
                         ))
@@ -83,6 +89,7 @@ const TabPrint = () => {
                         <th>Ukuran</th>
                         <th>Finishing</th>
                         <th>Desain</th>
+                        <th>User</th>
                         <th></th>
                     </tr>
                 </tfoot>

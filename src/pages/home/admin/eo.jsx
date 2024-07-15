@@ -2,6 +2,10 @@ import { useEffect, useState } from "react"
 import { getAuthToken } from "../../../helpers/auth"
 import axios from "../../../api/axios"
 import Loading from "../../../components/Loading"
+import { getStatusClass } from "../../../helpers/statusColor"
+import { MdOutlinePayments } from "react-icons/md"
+import StatusOrder from "../../../components/StatusOrder"
+import DetailUser from "../../../components/DetailUser"
 
 const TabEo = () => {
     const [data, setData] = useState([])
@@ -41,13 +45,14 @@ const TabEo = () => {
                 <thead>
                     <tr >
                         <th>No</th>
-                        <th>Kegiatan</th>
+                        <th>Konsep</th>
                         <th>Venue</th>
                         <th>Luas Venue</th>
                         <th>Luas Panggung</th>
                         <th>Kapasitas Orang</th>
                         <th>Kapasitas Sound</th>
                         <th>Kapasitas Kelengkapan</th>
+                        <th>User</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -59,6 +64,7 @@ const TabEo = () => {
                                 <td><b>{item.kegiatan}</b>
                                     <br />
                                     {item.konsep}
+                                    <StatusOrder id={item.id} status={item.status} pembayaran={item.pembayaran} onProcessComplete={fetchData} table="eo" />
                                 </td>
                                 <td>{item.venue}</td>
                                 <td>{parseInt(item.venue_panjang * item.venue_lebar)} m²</td>
@@ -76,9 +82,8 @@ const TabEo = () => {
                                     )}
                                 </td>
                                 <td>
-                                    {item.user ? item.user['user_name'] : '-'}
-                                    <br />
-                                    {item.user ? item.user['user_phone'] : '-'}
+                                    {item.user ? <DetailUser nama={item.user['user_name']} phone={item.user['user_phone']} /> : '-'}
+
                                 </td>
                             </tr>
                         ))
@@ -87,13 +92,14 @@ const TabEo = () => {
                 <tfoot>
                     <tr >
                         <th>No</th>
-                        <th>Kegiatan</th>
+                        <th>Konsep</th>
                         <th>Venue</th>
                         <th>Luas Venue</th>
                         <th>Luas Panggung</th>
                         <th>Kapasitas Orang</th>
                         <th>Kapasitas Sound</th>
                         <th>Kapasitas Kelengkapan</th>
+                        <th>User</th>
                         <th></th>
                     </tr>
                 </tfoot>

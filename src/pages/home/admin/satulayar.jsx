@@ -4,6 +4,9 @@ import axios from "../../../api/axios"
 import { rupiahFormat } from "../../../helpers/numberFormat"
 import { dateFormat } from "../../../helpers/dateTimeFormat"
 import Loading from "../../../components/Loading"
+import { getStatusClass } from "../../../helpers/statusColor"
+import StatusOrder from "../../../components/StatusOrder"
+import DetailUser from "../../../components/DetailUser"
 
 const TabSatulayar = () => {
     const [data, setData] = useState([])
@@ -48,6 +51,7 @@ const TabSatulayar = () => {
                         <th>Pengantaran</th>
                         <th>Lokasi</th>
                         <th>Total Harga</th>
+                        <th>User</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -65,15 +69,16 @@ const TabSatulayar = () => {
                                             ))
                                         }
                                     </div>
+                                    <StatusOrder id={item.id} status={item.status} pembayaran={item.pembayaran} onProcessComplete={fetchData} table="satulayar" />
+
                                 </td>
                                 <td>{item.jumlah_hari} Hari<br />{dateFormat(item.tanggal_pemesanan)} - {dateFormat(item.tanggal_pengembalian)}</td>
                                 <td>{item.pengantaran}</td>
                                 <td>{item.lokasi}<br />{rupiahFormat(item.lokasi_harga)}</td>
                                 <td>{rupiahFormat(item.total)}</td>
                                 <td>
-                                    {item.user ? item.user['user_name'] : '-'}
-                                    <br />
-                                    {item.user ? item.user['user_phone'] : '-'}
+                                    {item.user ? <DetailUser nama={item.user['user_name']} phone={item.user['user_phone']} /> : '-'}
+
                                 </td>
                             </tr>
                         ))
@@ -87,6 +92,7 @@ const TabSatulayar = () => {
                         <th>Pengantaran</th>
                         <th>Lokasi</th>
                         <th>Total Harga</th>
+                        <th>User</th>
                         <th></th>
                     </tr>
                 </tfoot>
