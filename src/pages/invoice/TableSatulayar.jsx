@@ -46,14 +46,6 @@ function TableSatulayar({ data }) {
                     <td colSpan="2" className="border p-2 text-right font-semibold">Subtotal</td>
                     <td className="border p-2 text-right">{rupiahFormat(total)}</td>
                 </tr>
-                <tr>
-                    <td colSpan="2" className="border p-2 text-right font-semibold">Tax (11%)</td>
-                    <td className="border p-2 text-right">{rupiahFormat(tax)}</td>
-                </tr>
-                <tr>
-                    <td colSpan="2" className="border p-2 text-right font-semibold">Total</td>
-                    <td className="border p-2 text-right">{rupiahFormat(grandTotal)}</td>
-                </tr>
             </tfoot>
         </table>
     )

@@ -62,7 +62,7 @@ function StatusOrder({ id, status, pembayaran, table, onProcessComplete }) {
                         <option>--</option>
                         <option>Batal</option>
                         <option>Diproses</option>
-                        <option>Persiapan Pengantaran</option>
+                        <option>Sedang Pengerjaan</option>
                         <option>Proses Antar</option>
                         <option>Selesai</option>
                     </select>

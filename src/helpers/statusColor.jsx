@@ -4,7 +4,7 @@ export function getStatusClass(status) {
             return 'bg-gray-200';
         case 'Menunggu Konfirmasi':
             return 'bg-yellow-200';
-        case 'Persiapan Pengantaran':
+        case 'Sedang Pengerjaan':
             return 'bg-orange-200';
         case 'Proses Antar':
             return 'bg-purple-200';
