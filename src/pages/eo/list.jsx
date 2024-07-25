@@ -140,7 +140,7 @@ const List = () => {
                                         {item.konsep}
                                     </Link>
                                         <br />
-                                        <p onClick={() => showUploadPembayaran(item.id)} className={`py-1 text-xs px-3 mt-2 ${getStatusClass(item.status)} rounded-full text-center w-fit`}>{item.status}</p>
+                                        <p onClick={() => showUploadPembayaran(item.id)} className={`py-1 text-xs px-3 mt-2 ${getStatusClass(item.status)} rounded-full text-center w-fit`}>{item.status}{item.status == 'Menunggu Pembayaran' ? '' : ` (Est : ${item.est} Hari)`}</p>
                                         {showUpload === item.id && (
                                             <div className="flex flex-col gap-1 mt-2">
                                                 <img src={`${import.meta.env.VITE_CLIENT_API_URL}/${item.pembayaran}`} className="w-36  object-cover" alt="" />

@@ -64,7 +64,7 @@ const TabWork = () => {
                                 <th>{index + 1}</th>
                                 <td><b>{item.perusahaan}</b>
                                     <br />
-                                    <StatusOrder id={item.id} status={item.status} pembayaran={item.pembayaran} onProcessComplete={fetchData} table="work" />
+                                    <StatusOrder id={item.id} status={item.status} est={item.est} pembayaran={item.pembayaran} onProcessComplete={fetchData} table="work" />
 
                                 </td>
                                 <td>{item.order}</td>

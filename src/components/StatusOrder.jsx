@@ -6,15 +6,29 @@ import axios from '../api/axios'
 import { Link } from 'react-router-dom'
 import { LiaFileInvoiceDollarSolid } from 'react-icons/lia'
 
-function StatusOrder({ id, status, pembayaran, table, onProcessComplete }) {
+function StatusOrder({ id, status, pembayaran, table, onProcessComplete, est }) {
     const [isLoading, setIsLoading] = useState(false)
-    const handleStatus = async (e) => {
-        setIsLoading(true)
+    const [dataest, setDataEst] = useState(est || 1)
+    const [dataStatus, setDataStatus] = useState('--')
+    const handleStatus = (e) => {
+        setDataStatus(e.target.value)
         if (status == '--') return false
+        // sendData()
+    }
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            sendData()
+        }
+    };
+
+    const sendData = async () => {
+        console.log(dataest, dataStatus, table, id)
+        setIsLoading(true)
         try {
             const data = {
                 id: id,
-                status: e.target.value,
+                status: dataStatus,
+                est: dataest,
                 tableDb: table,
             };
             const token = getAuthToken()
@@ -41,7 +55,7 @@ function StatusOrder({ id, status, pembayaran, table, onProcessComplete }) {
     return (
         <div className="mt-2 flex-col flex gap-2">
             <div className=" flex flex-row justify-start items-center gap-1 ">
-                <p className={`py-1 text-xs px-3 ${getStatusClass(status)} rounded-full text-center w-fit`}>{status}</p>
+                <p className={`py-1 text-xs px-3 ${getStatusClass(status)} rounded-full text-center w-fit`}>{status} {status == 'Menunggu Pembayaran' ? '' : `(Est : ${est} Hari)`}</p>
                 {
                     status !== 'Menunggu Pembayaran' &&
                     <>
@@ -58,14 +72,17 @@ function StatusOrder({ id, status, pembayaran, table, onProcessComplete }) {
                     :
                     status != 'Menunggu Pembayaran' &&
 
-                    <select className="select select-bordered select-xs w-full max-w-xs" onChange={handleStatus}>
-                        <option>--</option>
-                        <option>Batal</option>
-                        <option>Diproses</option>
-                        <option>Sedang Pengerjaan</option>
-                        <option>Proses Antar</option>
-                        <option>Selesai</option>
-                    </select>
+                    <div className='flex flex-row gap-2'>
+                        <select className="select select-bordered select-xs w-full max-w-xs" onChange={handleStatus}>
+                            <option>--</option>
+                            <option>Batal</option>
+                            <option>Diproses</option>
+                            <option>Sedang Pengerjaan</option>
+                            <option>Proses Antar</option>
+                            <option>Selesai</option>
+                        </select>
+                        <input type="text" value={dataest} onChange={(e) => setDataEst(e.target.value)} onKeyDown={handleKeyDown} className="input input-bordered input-xs w-full max-w-xs" placeholder="Estimasi Pengerjaan" />
+                    </div>
             }
         </div>
     )

@@ -69,7 +69,7 @@ const TabSatulayar = () => {
                                             ))
                                         }
                                     </div>
-                                    <StatusOrder id={item.id} status={item.status} pembayaran={item.pembayaran} onProcessComplete={fetchData} table="satulayar" />
+                                    <StatusOrder id={item.id} status={item.status} est={item.est} pembayaran={item.pembayaran} onProcessComplete={fetchData} table="satulayar" />
 
                                 </td>
                                 <td>{item.jumlah_hari} Hari<br />{dateFormat(item.tanggal_pemesanan)} - {dateFormat(item.tanggal_pengembalian)}</td>

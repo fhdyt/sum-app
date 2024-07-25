@@ -64,7 +64,7 @@ const TabEo = () => {
                                 <td><b>{item.kegiatan}</b>
                                     <br />
                                     {item.konsep}
-                                    <StatusOrder id={item.id} status={item.status} pembayaran={item.pembayaran} onProcessComplete={fetchData} table="eo" />
+                                    <StatusOrder id={item.id} status={item.status} est={item.est} pembayaran={item.pembayaran} onProcessComplete={fetchData} table="eo" />
                                 </td>
                                 <td>{item.venue}</td>
                                 <td>{parseInt(item.venue_panjang * item.venue_lebar)} m²</td>
